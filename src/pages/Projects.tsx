@@ -8,7 +8,8 @@ const Projects = () => {
     loading, 
     searchQuery, 
     setSearchQuery, 
-    projectsCount 
+    projectsCount,
+    updateFilter,
   } = useProjects();
 
   return (
@@ -18,6 +19,8 @@ const Projects = () => {
         count={projectsCount} 
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
+        updateFilter={updateFilter}
+        loading={loading}
       />
       <div className="px-8 pb-10">
         <ProjectTable projects={projects} loading={loading} />
