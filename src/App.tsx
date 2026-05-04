@@ -3,7 +3,7 @@ import Home from "@/pages/Home";
 import Projects from "@/pages/Projects";
 import Navbar from "@/components/Navbar";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import ProjectsDetail from "./pages/ProjectsDetail";
+import ProjectsDetail from "@/pages/ProjectsDetail";
 
 const App = () => {
   return (
