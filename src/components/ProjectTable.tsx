@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import ProjectTableSkeleton from "@/components/ProjectTableSkeleton";
 import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 
@@ -18,11 +19,7 @@ interface ProjectTableProps {
 
 const ProjectTable: React.FC<ProjectTableProps> = ({ projects, loading }) => {
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4F7CFF]"></div>
-      </div>
-    );
+    return <ProjectTableSkeleton />;
   }
 
   return (
@@ -77,7 +74,7 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects, loading }) => {
                 </TableCell>
                 <TableCell className="text-gray-600 text-[12px] font-medium">{project.target_name}</TableCell>
                 <TableCell>
-                  <Badge className="bg-blue-50/50 border border-blue-100 text-[#4F7CFF] px-2.5 py-1 text-[10px] font-bold rounded-md whitespace-nowrap shadow-sm">
+                  <Badge className="bg-transparent border border-gray-200 text-gray-500 px-2.5 py-1 text-[10px] font-bold rounded-md whitespace-nowrap hover:bg-gray-50 transition-colors">
                     {project.industry}
                   </Badge>
                 </TableCell>
