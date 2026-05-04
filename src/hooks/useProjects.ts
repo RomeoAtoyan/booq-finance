@@ -9,6 +9,7 @@ export const useProjects = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [projectsCount, setProjectsCount] = useState<number>(0)
   const [filters, setFilters] = useState<ProjectFilters>({
     industry: "",
   });
@@ -20,6 +21,7 @@ export const useProjects = () => {
         setLoading(true);
         const data = await fetchProjects();
         setProjects(data);
+        setProjectsCount(data.length)
       } catch (error) {
         setError(error as Error);
       } finally {
@@ -59,6 +61,7 @@ export const useProjects = () => {
     error,
     searchQuery,
     filters,
+    projectsCount,
     updateFilter,
     setSearchQuery,
   };
