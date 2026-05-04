@@ -1,7 +1,11 @@
-const ProjectsDetail = () => {
-  return (
-    <div>ProjectsDetail</div>
-  )
-}
+import { useProjectDetail } from "@/hooks/useProjectDetail";
+import { useParams } from "react-router-dom";
 
-export default ProjectsDetail
+const ProjectsDetail = () => {
+  const { id } = useParams();
+  const { project } = useProjectDetail({ id });
+
+  return <div>{JSON.stringify(project)}</div>;
+};
+
+export default ProjectsDetail;
