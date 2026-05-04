@@ -55,9 +55,11 @@ export const useProjects = () => {
     });
   }, [projects, filters, debouncedSearch]);
 
+  const isSearching = searchQuery !== debouncedSearch;
+
   return {
     projects: filteredProjects,
-    loading,
+    loading: loading || isSearching,
     error,
     searchQuery,
     filters,
