@@ -78,10 +78,12 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects, loading }) => {
                     {project.industry}
                   </Badge>
                 </TableCell>
-                <TableCell className="pr-8 text-right">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-bold bg-gray-50 text-gray-600 border border-gray-100">
-                    {project.members.length} members
-                  </span>
+                <TableCell className="pr-8">
+                  <div className="flex justify-end">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-bold bg-[#F9FAFF] text-[#4F7CFF] border border-[#E8EFFF]">
+                      {project.members.length}
+                    </div>
+                  </div>
                 </TableCell>
               </TableRow>
             ))

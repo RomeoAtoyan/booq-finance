@@ -43,8 +43,10 @@ const ProjectTableSkeleton = () => (
             <TableCell><Skeleton className="h-6 w-24 rounded-md" /></TableCell>
             <TableCell><Skeleton className="h-4 w-28" /></TableCell>
             <TableCell><Skeleton className="h-6 w-20 rounded-md" /></TableCell>
-            <TableCell className="pr-8 text-right flex justify-end">
-              <Skeleton className="h-6 w-20 rounded-full" />
+            <TableCell className="pr-8">
+              <div className="flex justify-end">
+                <Skeleton className="h-8 w-8 rounded-full" />
+              </div>
             </TableCell>
           </TableRow>
         ))}
