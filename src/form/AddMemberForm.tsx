@@ -8,65 +8,112 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { memberSchema, type MemberFormValues } from "@/zod/add-member.schema";
 import { PlusCircle } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormErrorMessage } from "./FormErrorMessage";
+import { cn } from "@/lib/utils";
 
 const AddMemberForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<MemberFormValues>({
+    resolver: zodResolver(memberSchema),
+  });
+
+  const onSubmit = (data: MemberFormValues) => {
+    console.log(data);
+  };
+
   return (
-    <>
+    <form
+      noValidate
+      className="space-y-6"
+      id="add-member-form"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Field>
           <FieldLabel
             htmlFor="input-field-name"
             className="text-[11px] uppercase tracking-wide font-bold text-gray-500"
           >
-            Full Name
+            Full Name<span className="text-red-400">*</span>
           </FieldLabel>
           <Input
+            {...register("name")}
             id="input-field-name"
             type="text"
             placeholder="e.g. John Doe"
-            className="mt-1.5 h-10 border-gray-100 shadow-none focus:ring-[#4F7CFF]/20"
+            className={cn(
+              "mt-1.5 h-10 border-gray-100 shadow-none focus:ring-[#4F7CFF]/20",
+              errors.name && "border-destructive",
+            )}
           />
+          <FormErrorMessage errors={errors.name} />
         </Field>
         <Field>
           <FieldLabel
             htmlFor="input-field-email"
             className="text-[11px] uppercase tracking-wide font-bold text-gray-500"
           >
-            Email Address
+            Email Address<span className="text-red-400">*</span>
           </FieldLabel>
           <Input
+            {...register("email")}
             id="input-field-email"
             type="email"
             placeholder="john@company.com"
-            className="mt-1.5 h-10 border-gray-100 shadow-none focus:ring-[#4F7CFF]/20"
+            className={cn(
+              "mt-1.5 h-10 border-gray-100 shadow-none focus:ring-[#4F7CFF]/20",
+              errors.email && "border-destructive",
+            )}
           />
+          <FormErrorMessage errors={errors.email} />
         </Field>
       </div>
 
       <div className="mb-8">
-        <FieldLabel className="text-[11px] uppercase tracking-wide font-bold text-gray-500">
-          Project Role
-        </FieldLabel>
-        <Select defaultValue="member">
-          <SelectTrigger className="mt-1.5 h-10 border-gray-100 shadow-none focus:ring-[#4F7CFF]/20">
-            <SelectValue placeholder="Select a role" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="member">Member</SelectItem>
-            <SelectItem value="owner">Owner</SelectItem>
-            <SelectItem value="viewer">Viewer</SelectItem>
-          </SelectContent>
-        </Select>
+        <Field>
+          <FieldLabel className="text-[11px] uppercase tracking-wide font-bold text-gray-500">
+            Project Role<span className="text-red-400">*</span>
+          </FieldLabel>
+          <Select
+            onValueChange={(value) =>
+              setValue("role", value as MemberFormValues["role"])
+            }
+          >
+            <SelectTrigger
+              className={cn(
+                "mt-1.5 h-10 border-gray-100 shadow-none focus:ring-[#4F7CFF]/20",
+                errors.role && "border-destructive",
+              )}
+            >
+              <SelectValue placeholder="Select a role" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="MEMBER">Member</SelectItem>
+              <SelectItem value="OWNER">Owner</SelectItem>
+            </SelectContent>
+          </Select>
+          <FormErrorMessage errors={errors.role} />
+        </Field>
       </div>
 
       <div className="flex justify-end">
-        <Button className="w-full bg-[#4F7CFF] hover:bg-[#4F7CFF]/90 text-white">
+        <Button
+          type="submit"
+          className="w-full bg-[#4F7CFF] hover:bg-[#4F7CFF]/90 text-white"
+        >
           Add Member
           <PlusCircle />
         </Button>
       </div>
-    </>
+    </form>
   );
 };
 
