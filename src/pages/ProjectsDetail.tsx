@@ -1,4 +1,4 @@
-import { useProjectDetail } from "@/hooks/useProjectDetail";
+import { useProjectDetail } from "@/hooks/useProject";
 import { useParams } from "react-router-dom";
 
 const ProjectsDetail = () => {

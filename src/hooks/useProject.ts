@@ -1,6 +1,6 @@
 import type { Project } from "@/types/project";
 import { useEffect, useState } from "react";
-import { fetchProjectDetail } from "@/services/projects.service";
+import { fetchProjectById } from "@/services/projects.service";
 
 export const useProjectDetail = ({ id }: { id: string | undefined }) => {
   const [project, setProject] = useState<Project | null>(null);
@@ -13,7 +13,7 @@ export const useProjectDetail = ({ id }: { id: string | undefined }) => {
     const loadProject = async () => {
       try {
         setLoading(true);
-        const data = await fetchProjectDetail({ id });
+        const data = await fetchProjectById({ id });
         setProject(data);
       } catch (err) {
         setError(err as Error);
