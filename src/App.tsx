@@ -8,27 +8,32 @@ import Navbar from "@/components/layout/Navbar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ProjectsDetail from "@/pages/ProjectsDetail";
 import { ROUTES } from "./pages/routes";
+import { ModalProvider } from "@/context/ModalContext";
+import ModalContainer from "@/components/layout/ModalContainer";
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <BrowserRouter>
-          <div className="min-h-screen bg-white">
-            <Navbar />
-            <main>
-              <Routes>
-                <Route path={ROUTES.ROOT} element={<Home />} />
-                <Route path={ROUTES.PROJECTS} element={<Projects />} />
-                <Route
-                  path={`${ROUTES.PROJECTS}/:id`}
-                  element={<ProjectsDetail />}
-                />
-              </Routes>
-            </main>
-          </div>
-        </BrowserRouter>
-      </TooltipProvider>
+      <ModalProvider>
+        <TooltipProvider>
+          <BrowserRouter>
+            <div className="min-h-screen bg-white">
+              <Navbar />
+              <main>
+                <Routes>
+                  <Route path={ROUTES.ROOT} element={<Home />} />
+                  <Route path={ROUTES.PROJECTS} element={<Projects />} />
+                  <Route
+                    path={`${ROUTES.PROJECTS}/:id`}
+                    element={<ProjectsDetail />}
+                  />
+                </Routes>
+              </main>
+            </div>
+            <ModalContainer />
+          </BrowserRouter>
+        </TooltipProvider>
+      </ModalProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
