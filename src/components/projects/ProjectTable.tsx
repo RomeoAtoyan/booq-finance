@@ -12,6 +12,7 @@ import ProjectTableSkeleton from "@/components/projects/ProjectTableSkeleton";
 import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { ROUTES } from "@/pages/routes";
 
 interface ProjectTableProps {
   projects: Project[];
@@ -48,32 +49,49 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects, loading }) => {
         <TableBody>
           {projects.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={5} className="h-32 text-center text-gray-400 font-medium">
+              <TableCell
+                colSpan={5}
+                className="h-32 text-center text-gray-400 font-medium"
+              >
                 No projects found.
               </TableCell>
             </TableRow>
           ) : (
             projects.map((project, index) => (
-              <TableRow key={project.id} className="group border-b border-gray-50 hover:bg-gray-50/40 transition-colors">
+              <TableRow
+                key={project.id}
+                className="group border-b border-gray-50 hover:bg-gray-50/40 transition-colors"
+              >
                 <TableCell className="py-5 px-8 group">
-                  <Link to={`/projects/${project.id}`} className="flex items-center space-x-3 group-hover:underline">
-                    <div className={cn(
-                      "w-8 h-8 rounded-full flex items-center justify-center text-white text-[11px] font-bold shadow-sm shrink-0",
-                      index % 3 === 0 ? "bg-[#FF6B6B]" : index % 3 === 1 ? "bg-[#4F7CFF]" : "bg-[#FFB84D]"
-                    )}>
-                      {project.project_name.split(" ").length > 1 
-                        ? project.project_name.split(" ")[1].charAt(0) 
+                  <Link
+                    to={`${ROUTES.PROJECT_DETAIL(project.id)}`}
+                    className="flex items-center space-x-3 group-hover:underline"
+                  >
+                    <div
+                      className={cn(
+                        "w-8 h-8 rounded-full flex items-center justify-center text-white text-[11px] font-bold shadow-sm shrink-0",
+                        index % 3 === 0
+                          ? "bg-[#FF6B6B]"
+                          : index % 3 === 1
+                            ? "bg-[#4F7CFF]"
+                            : "bg-[#FFB84D]",
+                      )}
+                    >
+                      {project.project_name.split(" ").length > 1
+                        ? project.project_name.split(" ")[1].charAt(0)
                         : project.project_name.charAt(0)}
                     </div>
                     <span className="font-bold text-[#4F7CFF] text-[12px] hover:underline cursor-pointer transition-all">
                       {project.project_name}
-                    </span >
+                    </span>
                   </Link>
                 </TableCell>
                 <TableCell className="text-gray-600 text-[12px] font-medium">
                   {project.client_name}
                 </TableCell>
-                <TableCell className="text-gray-600 text-[12px] font-medium">{project.target_name}</TableCell>
+                <TableCell className="text-gray-600 text-[12px] font-medium">
+                  {project.target_name}
+                </TableCell>
                 <TableCell>
                   <Badge className="bg-transparent border border-gray-200 text-gray-500 px-2.5 py-1 text-[10px] font-bold rounded-md whitespace-nowrap hover:bg-gray-50 transition-colors">
                     {project.industry}

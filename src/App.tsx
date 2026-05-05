@@ -7,6 +7,7 @@ import Projects from "@/pages/Projects";
 import Navbar from "@/components/layout/Navbar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ProjectsDetail from "@/pages/ProjectsDetail";
+import { ROUTES } from "./pages/routes";
 
 const App = () => {
   return (
@@ -17,9 +18,12 @@ const App = () => {
             <Navbar />
             <main>
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/projects/:id" element={<ProjectsDetail />} />
+                <Route path={ROUTES.ROOT} element={<Home />} />
+                <Route path={ROUTES.PROJECTS} element={<Projects />} />
+                <Route
+                  path={`${ROUTES.PROJECTS}/:id`}
+                  element={<ProjectsDetail />}
+                />
               </Routes>
             </main>
           </div>
