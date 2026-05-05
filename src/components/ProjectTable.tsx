@@ -55,8 +55,8 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects, loading }) => {
           ) : (
             projects.map((project, index) => (
               <TableRow key={project.id} className="group border-b border-gray-50 hover:bg-gray-50/40 transition-colors">
-                <TableCell className="py-5 px-8">
-                  <Link to={`/projects/${project.id}`} className="flex items-center space-x-3">
+                <TableCell className="py-5 px-8 group">
+                  <Link to={`/projects/${project.id}`} className="flex items-center space-x-3 group-hover:underline">
                     <div className={cn(
                       "w-8 h-8 rounded-full flex items-center justify-center text-white text-[11px] font-bold shadow-sm shrink-0",
                       index % 3 === 0 ? "bg-[#FF6B6B]" : index % 3 === 1 ? "bg-[#4F7CFF]" : "bg-[#FFB84D]"
