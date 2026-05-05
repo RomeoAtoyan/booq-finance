@@ -1,33 +1,20 @@
-import type { Project } from "@/types/project";
-import { useEffect, useState } from "react";
 import { fetchProjectById } from "@/services/projects.service";
+import { useQuery } from "@tanstack/react-query";
 
 export const useProjectDetail = ({ id }: { id: string | undefined }) => {
-  const [project, setProject] = useState<Project | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    if (!id) return;
-
-    const loadProject = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchProjectById({ id });
-        setProject(data);
-      } catch (err) {
-        setError(err as Error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProject();
-  }, [id]);
+  const {
+    data: project,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["projects", id],
+    queryFn: () => fetchProjectById({ id }),
+    enabled: !!id,
+  });
 
   return {
     project,
-    loading,
+    isLoading,
     error,
   };
 };
