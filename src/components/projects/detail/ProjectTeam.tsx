@@ -9,12 +9,16 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
+import { useModal } from "@/hooks/useModal";
+import AddMemberModal from "@/components/modals/AddMemberModal";
 
 interface ProjectTeamProps {
   members: ProjectMember[];
 }
 
 const ProjectTeam = ({ members }: ProjectTeamProps) => {
+  const { openModal } = useModal();
+
   return (
     <>
       <div className="border border-gray-100 rounded-xl overflow-hidden mb-4">
@@ -75,7 +79,10 @@ const ProjectTeam = ({ members }: ProjectTeamProps) => {
         </Table>
       </div>
       <div className="w-full">
-        <Button className="w-full bg-[#4F7CFF] hover:bg-[#4F7CFF]/90 text-white">
+        <Button
+          onClick={() => openModal("Add a member", <AddMemberModal />)}
+          className="w-full bg-[#4F7CFF] hover:bg-[#4F7CFF]/90 text-white"
+        >
           Add Member
           <PlusCircle className="w-3.5 h-3.5 ml-2" />
         </Button>
