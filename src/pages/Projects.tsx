@@ -1,5 +1,5 @@
-import PageHeader from "@/components/PageHeader";
-import ProjectTable from "@/components/ProjectTable";
+import ProjectListHeader from "@/components/projects/ProjectListHeader";
+import ProjectTable from "@/components/projects/ProjectTable";
 import { useProjects } from "@/hooks/useProjects";
 
 const Projects = () => {
@@ -14,7 +14,7 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen bg-[#F8F9FD]">
-      <PageHeader 
+      <ProjectListHeader 
         title="Projects" 
         count={projectsCount} 
         searchValue={searchQuery}

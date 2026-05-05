@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProjectFilter } from "@/components/ProjectFilter";
+import { ProjectFilter } from "@/components/projects/ProjectFilter";
 
 interface PageHeaderProps {
   title: string;

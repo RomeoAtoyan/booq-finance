@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import ProjectTableSkeleton from "@/components/ProjectTableSkeleton";
+import ProjectTableSkeleton from "@/components/projects/ProjectTableSkeleton";
 import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";

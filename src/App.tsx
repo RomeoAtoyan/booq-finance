@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "@/pages/Home";
 import Projects from "@/pages/Projects";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ProjectsDetail from "@/pages/ProjectsDetail";
 

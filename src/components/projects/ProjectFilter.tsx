@@ -17,7 +17,11 @@ const industries = [
   "Healthcare",
 ] as const
 
-export function ProjectFilter({ updateFilter }) {
+interface ProjectFilterProps {
+  updateFilter?: (key: string, value: string) => void;
+}
+
+export function ProjectFilter({ updateFilter }: ProjectFilterProps) {
   return (
     <div className="flex items-center space-x-3">
       <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap">Filter by:</div>
