@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import SubmitButton from "@/components/common/SubmitButton";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -8,18 +8,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { memberSchema, type MemberFormValues } from "@/zod/add-member.schema";
-import { PlusCircle } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormErrorMessage } from "./FormErrorMessage";
 import { cn } from "@/lib/utils";
+import { memberSchema, type MemberFormValues } from "@/zod/add-member.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { FormErrorMessage } from "../components/form/FormErrorMessage";
+import { PlusCircle } from "lucide-react";
 
 const AddMemberForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
   } = useForm<MemberFormValues>({
     resolver: zodResolver(memberSchema),
@@ -105,13 +105,12 @@ const AddMemberForm = () => {
       </div>
 
       <div className="flex justify-end">
-        <Button
-          type="submit"
+        <SubmitButton
+          isSubmitting={isSubmitting}
+          icon={<PlusCircle />}
+          label="Add Member"
           className="w-full bg-[#4F7CFF] hover:bg-[#4F7CFF]/90 text-white"
-        >
-          Add Member
-          <PlusCircle />
-        </Button>
+        />
       </div>
     </form>
   );
