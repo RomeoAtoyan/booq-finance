@@ -42,13 +42,13 @@ export const useProjectDetail = ({ id }: { id: string | undefined }) => {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log("Member added successfully (simulated)");
       toast.success("Member added successfully");
     } catch (error) {
       setProject({
         ...project,
         members: previousMembers,
       });
+      toast.error("Failed to add team member. Please try again.");
     }
   };
 

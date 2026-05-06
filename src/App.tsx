@@ -28,7 +28,7 @@ const App = () => {
             </main>
           </div>
           <ModalContainer />
-          <Toaster />
+          <Toaster position="top-center" />
         </BrowserRouter>
       </TooltipProvider>
     </ModalProvider>
