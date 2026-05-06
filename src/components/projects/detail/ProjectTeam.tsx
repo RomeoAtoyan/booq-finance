@@ -10,10 +10,11 @@ import {
 import { PlusCircle } from "lucide-react";
 import { useModal } from "@/hooks/useModal";
 import AddMemberModal from "@/components/modals/AddMemberModal";
+import type { MemberFormValues } from "@/zod/add-member.schema";
 
 interface ProjectTeamProps {
   members: ProjectMember[];
-  onAddMember: (data: any) => void;
+  onAddMember: (data: MemberFormValues) => void;
 }
 
 const ProjectTeam = ({ members, onAddMember }: ProjectTeamProps) => {

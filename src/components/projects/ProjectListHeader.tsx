@@ -1,13 +1,14 @@
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectFilter } from "@/components/projects/ProjectFilter";
+import type { ProjectFilters } from "@/types/project-filters";
 
 interface PageHeaderProps {
   title: string;
   count?: number;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
-  updateFilter?: (key: any, value: string) => void;
+  updateFilter?: (key: keyof ProjectFilters, value: string) => void;
   loading: boolean;
 }
 

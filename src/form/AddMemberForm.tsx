@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { FormErrorMessage } from "../components/form/FormErrorMessage";
 
 interface AddMemberFormProps {
-  onAddMember: (data: any) => void;
+  onAddMember: (data: MemberFormValues) => void;
 }
 
 const AddMemberForm = ({ onAddMember }: AddMemberFormProps) => {

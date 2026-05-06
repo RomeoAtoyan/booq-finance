@@ -1,7 +1,9 @@
 import AddMemberForm from "@/form/AddMemberForm";
 
+import type { MemberFormValues } from "@/zod/add-member.schema";
+
 interface AddMemberModalProps {
-  onAddMember: (data: any) => void;
+  onAddMember: (data: MemberFormValues) => void;
 }
 
 const AddMemberModal = ({ onAddMember }: AddMemberModalProps) => {

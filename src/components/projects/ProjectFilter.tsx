@@ -1,4 +1,5 @@
 "use client"
+import type { ProjectFilters } from "@/types/project-filters";
 
 import {
   Select,
@@ -18,7 +19,7 @@ const industries = [
 ] as const
 
 interface ProjectFilterProps {
-  updateFilter?: (key: string, value: string) => void;
+  updateFilter?: (key: keyof ProjectFilters, value: string) => void;
 }
 
 export function ProjectFilter({ updateFilter }: ProjectFilterProps) {

@@ -1,4 +1,6 @@
-import React, { createContext, ReactNode, useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import React, { createContext, useState } from "react";
+import type { ReactNode } from "react";
 
 interface ModalContextType {
   isOpen: boolean;

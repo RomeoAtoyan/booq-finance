@@ -1,16 +1,17 @@
 import { fetchProjectById } from "@/services/projects.service";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { Project } from "@/types/project";
 import { toast } from "sonner";
 import { useSimulation } from "@/context/SimulationContext";
+import type { MemberFormValues } from "@/zod/add-member.schema";
 
 export const useProjectDetail = ({ id }: { id: string | undefined }) => {
   const [project, setProject] = useState<Project | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState<Error | null>(null);
   const { isErrorMode, isLoadingMode } = useSimulation();
 
-  const loadProject = async () => {
+  const loadProject = useCallback(async () => {
     if (!id) return;
     try {
       setIsLoading(true);
@@ -27,23 +28,24 @@ export const useProjectDetail = ({ id }: { id: string | undefined }) => {
       const data = await fetchProjectById({ id });
       setProject(data);
     } catch (err) {
-      setError(err);
+      setError(err as Error);
     } finally {
       setIsLoading(false);
     }
-  };
-
-  useEffect(() => {
-    loadProject();
   }, [id, isLoadingMode, isErrorMode]);
 
-  const addMember = async (memberData: any) => {
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadProject();
+  }, [loadProject]);
+
+  const addMember = async (memberData: MemberFormValues) => {
     if (!project) return;
 
     const previousMembers = project.members;
     const newMember = {
       ...memberData,
-      user_id: Math.random().toString(36).substr(2, 9),
+      user_id: Math.random().toString(36).substring(2, 11),
     };
 
     setProject({
@@ -59,7 +61,7 @@ export const useProjectDetail = ({ id }: { id: string | undefined }) => {
       }
 
       toast.success("Member added successfully");
-    } catch (error) {
+    } catch {
       setProject({
         ...project,
         members: previousMembers,
