@@ -2,24 +2,34 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { fetchProjects } from "@/services/projects.service";
 import type { Project } from "@/types/project";
 import type { ProjectFilters } from "@/types/project-filters";
-import { useQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const useProjects = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filters, setFilters] = useState<ProjectFilters>({
     industry: "",
   });
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<any>(null);
+
   const debouncedSearch = useDebounce(searchQuery, 800);
 
-  const {
-    data: projects = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["projects"],
-    queryFn: fetchProjects,
-  });
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        setIsLoading(true);
+        const data = await fetchProjects();
+        setProjects(data);
+        setError(null);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadProjects();
+  }, []);
 
   const updateFilter = (key: keyof ProjectFilters, value: string) => {
     setFilters((prev) => ({

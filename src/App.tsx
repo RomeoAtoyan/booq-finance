@@ -1,7 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { queryClient } from "@/lib/react-query";
 import Home from "@/pages/Home";
 import Projects from "@/pages/Projects";
 import Navbar from "@/components/layout/Navbar";
@@ -13,29 +10,26 @@ import ModalContainer from "@/components/layout/ModalContainer";
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ModalProvider>
-        <TooltipProvider>
-          <BrowserRouter>
-            <div className="min-h-screen bg-white">
-              <Navbar />
-              <main>
-                <Routes>
-                  <Route path={ROUTES.ROOT} element={<Home />} />
-                  <Route path={ROUTES.PROJECTS} element={<Projects />} />
-                  <Route
-                    path={`${ROUTES.PROJECTS}/:id`}
-                    element={<ProjectsDetail />}
-                  />
-                </Routes>
-              </main>
-            </div>
-            <ModalContainer />
-          </BrowserRouter>
-        </TooltipProvider>
-      </ModalProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <ModalProvider>
+      <TooltipProvider>
+        <BrowserRouter>
+          <div className="min-h-screen bg-white">
+            <Navbar />
+            <main>
+              <Routes>
+                <Route path={ROUTES.ROOT} element={<Home />} />
+                <Route path={ROUTES.PROJECTS} element={<Projects />} />
+                <Route
+                  path={`${ROUTES.PROJECTS}/:id`}
+                  element={<ProjectsDetail />}
+                />
+              </Routes>
+            </main>
+          </div>
+          <ModalContainer />
+        </BrowserRouter>
+      </TooltipProvider>
+    </ModalProvider>
   );
 };
 
