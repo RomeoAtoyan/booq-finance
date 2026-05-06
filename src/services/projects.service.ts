@@ -13,9 +13,12 @@ export const projectsService = {
 
   getById: async (id: string): Promise<Project | undefined> => {
     const projects = await projectsService.getAll();
-    return projects.find(
+    const project = projects.find(
       (p: Project) => p.id.toLowerCase() === id.toLowerCase(),
     );
+    if (!project) throw new Error(`Could NOT find the project with ID: ${id}`);
+
+    return project;
   },
 };
 
