@@ -1,76 +1,25 @@
-# React + TypeScript + Vite
+___HOW TO RUN___
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- npm install
+- npm run dev
 
-Currently, two official plugins are available:
+___HOW I WOULD HANDLE FUNCTIONALITY IF THIS WAS A REAL PROJECT____
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- use ReactQuery instead of native javascript fetch. (handles caching, loading, error, retries, etc...).
+- use REST or GQL for handling heavy data fetching and mutations.
+- use Zustand (my preference) for state management or any other state management library (nobody likes prop drilling).
+- write Unit and E2E test (UI flows, logic, etc...).
 
-## React Compiler
+___DESICIONS & TRADE-OFFS___
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+Data driven projects can get complex really quick so i wanted to keep the UI components 'dumb' so when the project scales more and more we keep isolating the UI components with functionality.
 
-Note: This will impact Vite dev & build performances.
+- Project Service : I built a dedicated projects service to handle all data fetching and error handling in one place, keeping the API logic separate from the UI.
 
-## Expanding the ESLint configuration
+- Custom Hooks: I created hooks to manage the data lifecycle (loading, error, and state). This makes the logic reusable across the projet and ensures a consistent user experience everywhere we fetch data.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Styling: I used tailwindcss for styling which is very clean and used Shadcn as a UI library
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- UI: I listed the projects in a clear easily readable data table from our UI libary. The detail page contains a clean structued display of the data we received from the "backend".
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# booq-finance
+- Loading and Error states: I added toggles in the Navbar to manually trigger 'Loading' and 'Error' states across the project.
