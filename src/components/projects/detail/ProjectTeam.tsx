@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { useModal } from "@/hooks/useModal";
 import AddMemberModal from "@/components/modals/AddMemberModal";
@@ -75,17 +74,19 @@ const ProjectTeam = ({ members }: ProjectTeamProps) => {
                 </TableCell>
               </TableRow>
             )}
+            <TableRow
+              onClick={() => openModal("Add a member", <AddMemberModal />)}
+              className="cursor-pointer group hover:bg-blue-50/50 transition-colors"
+            >
+              <TableCell colSpan={2} className="py-4 px-6">
+                <div className="flex items-center justify-center gap-2 py-3 border-2 border-dashed border-[#4F7CFF]/20 bg-[#4F7CFF]/[0.03] rounded-xl text-[11px] font-bold uppercase tracking-widest text-[#4F7CFF] group-hover:border-[#4F7CFF]/40 group-hover:bg-[#4F7CFF]/[0.06] transition-all">
+                  <PlusCircle className="w-4 h-4" />
+                  Add New Team Member
+                </div>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
-      </div>
-      <div className="w-full">
-        <Button
-          onClick={() => openModal("Add a member", <AddMemberModal />)}
-          className="w-full bg-[#4F7CFF] hover:bg-[#4F7CFF]/90 text-white"
-        >
-          Add Member
-          <PlusCircle className="w-3.5 h-3.5 ml-2" />
-        </Button>
       </div>
     </>
   );
