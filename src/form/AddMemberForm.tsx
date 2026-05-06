@@ -8,14 +8,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useModal } from "@/hooks/useModal";
 import { cn } from "@/lib/utils";
 import { memberSchema, type MemberFormValues } from "@/zod/add-member.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { PlusCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { FormErrorMessage } from "../components/form/FormErrorMessage";
-import { PlusCircle } from "lucide-react";
 
-const AddMemberForm = () => {
+interface AddMemberFormProps {
+  onAddMember: (data: any) => void;
+}
+
+const AddMemberForm = ({ onAddMember }: AddMemberFormProps) => {
+  const { closeModal } = useModal();
+
   const {
     register,
     handleSubmit,
@@ -25,8 +32,10 @@ const AddMemberForm = () => {
     resolver: zodResolver(memberSchema),
   });
 
-  const onSubmit = (data: MemberFormValues) => {
-    console.log(data);
+  const onSubmit = async (data: MemberFormValues) => {
+    console.log("Adding member optimistically:", data);
+    onAddMember(data);
+    closeModal();
   };
 
   return (

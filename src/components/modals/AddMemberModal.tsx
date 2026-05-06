@@ -1,9 +1,13 @@
 import AddMemberForm from "@/form/AddMemberForm";
 
-const AddMemberModal = () => {
+interface AddMemberModalProps {
+  onAddMember: (data: any) => void;
+}
+
+const AddMemberModal = ({ onAddMember }: AddMemberModalProps) => {
   return (
     <div className="space-y-6 py-2">
-      <AddMemberForm />
+      <AddMemberForm onAddMember={onAddMember} />
     </div>
   );
 };

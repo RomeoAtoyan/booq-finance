@@ -13,9 +13,10 @@ import AddMemberModal from "@/components/modals/AddMemberModal";
 
 interface ProjectTeamProps {
   members: ProjectMember[];
+  onAddMember: (data: any) => void;
 }
 
-const ProjectTeam = ({ members }: ProjectTeamProps) => {
+const ProjectTeam = ({ members, onAddMember }: ProjectTeamProps) => {
   const { openModal } = useModal();
 
   return (
@@ -75,7 +76,12 @@ const ProjectTeam = ({ members }: ProjectTeamProps) => {
               </TableRow>
             )}
             <TableRow
-              onClick={() => openModal("Add a member", <AddMemberModal />)}
+              onClick={() =>
+                openModal(
+                  "Add a member",
+                  <AddMemberModal onAddMember={onAddMember} />,
+                )
+              }
               className="cursor-pointer group hover:bg-blue-50/50 transition-colors"
             >
               <TableCell colSpan={2} className="py-4 px-6">

@@ -1,18 +1,23 @@
 import type { Project } from "@/types/project";
 
-export const fetchProjects = async (): Promise<Project[]> => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const response = await fetch("/backend-mock/projects.json");
-  if (!response.ok) throw new Error("Error fetching projects ...");
-  const data = await response.json();
-  return data.projects;
+const BASE_URL = "/backend-mock/projects.json";
+
+export const projectsService = {
+  getAll: async (): Promise<Project[]> => {
+    const res = await fetch(BASE_URL);
+    if (!res.ok) throw new Error("Error fetching projects...");
+    const data = await res.json();
+    return data.projects;
+  },
+
+  getById: async (id: string): Promise<Project | undefined> => {
+    const projects = await projectsService.getAll();
+    return projects.find(
+      (p: Project) => p.id.toLowerCase() === id.toLowerCase(),
+    );
+  },
 };
 
-export const fetchProjectById = async ({ id }: { id: string }) => {
-  const projects = await fetchProjects();
-  const project = projects.find(
-    (p: Project) => p.id.toLowerCase() === id.toLowerCase(),
-  );
-    if (!project) throw new Error(`Project with ${id} not found ...`);
-  return project;
-};
+export const fetchProjects = projectsService.getAll;
+export const fetchProjectById = ({ id }: { id: string }) =>
+  projectsService.getById(id);

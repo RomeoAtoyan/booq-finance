@@ -12,7 +12,7 @@ import { ROUTES } from "@/pages/routes";
 
 const ProjectsDetail = () => {
   const { id } = useParams();
-  const { project, isLoading, error } = useProjectDetail({ id });
+  const { project, isLoading, error, addMember } = useProjectDetail({ id });
 
   if (error) {
     return <ProjectErrorState message={(error as Error).message} />;
@@ -44,7 +44,7 @@ const ProjectsDetail = () => {
             <ProjectEntities entities={project.entities} />
           </div>
           <div className="col-span-12 lg:col-span-4">
-            <ProjectTeam members={project.members} />
+            <ProjectTeam members={project.members} onAddMember={addMember} />
           </div>
         </div>
       </div>
