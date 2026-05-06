@@ -7,6 +7,7 @@ import ProjectsDetail from "@/pages/ProjectsDetail";
 import { ROUTES } from "./pages/routes";
 import { ModalProvider } from "@/context/ModalContext";
 import ModalContainer from "@/components/layout/ModalContainer";
+import { Toaster } from "@/components/ui/sonner";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
             </main>
           </div>
           <ModalContainer />
+          <Toaster />
         </BrowserRouter>
       </TooltipProvider>
     </ModalProvider>
