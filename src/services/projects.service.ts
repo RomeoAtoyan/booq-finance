@@ -4,6 +4,7 @@ const BASE_URL = "/backend-mock/projects.json";
 
 export const projectsService = {
   getAll: async (): Promise<Project[]> => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const res = await fetch(BASE_URL);
     if (!res.ok) throw new Error("Error fetching projects...");
     const data = await res.json();

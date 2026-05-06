@@ -3,6 +3,7 @@ import { fetchProjects } from "@/services/projects.service";
 import type { Project } from "@/types/project";
 import type { ProjectFilters } from "@/types/project-filters";
 import { useEffect, useMemo, useState } from "react";
+import { useSimulation } from "@/context/SimulationContext";
 
 export const useProjects = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -12,6 +13,7 @@ export const useProjects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<any>(null);
+  const { isErrorMode, isLoadingMode } = useSimulation();
 
   const debouncedSearch = useDebounce(searchQuery, 800);
 
@@ -19,9 +21,18 @@ export const useProjects = () => {
     const loadProjects = async () => {
       try {
         setIsLoading(true);
+        setError(null);
+
+        if (isLoadingMode) {
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+        }
+
+        if (isErrorMode) {
+          throw new Error("Simulated Global Error");
+        }
+
         const data = await fetchProjects();
         setProjects(data);
-        setError(null);
       } catch (err) {
         setError(err);
       } finally {
@@ -29,7 +40,7 @@ export const useProjects = () => {
       }
     };
     loadProjects();
-  }, []);
+  }, [isLoadingMode, isErrorMode]);
 
   const updateFilter = (key: keyof ProjectFilters, value: string) => {
     setFilters((prev) => ({

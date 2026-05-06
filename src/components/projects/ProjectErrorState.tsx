@@ -4,9 +4,13 @@ import { Link } from "react-router-dom";
 
 interface ProjectErrorStateProps {
   message: string;
+  showBackLink?: boolean;
 }
 
-const ProjectErrorState = ({ message }: ProjectErrorStateProps) => {
+const ProjectErrorState = ({
+  message,
+  showBackLink = true,
+}: ProjectErrorStateProps) => {
   return (
     <div className="max-w-7xl mx-auto px-8 py-32 flex flex-col items-center text-center">
       <div className="max-w-md">
@@ -14,15 +18,17 @@ const ProjectErrorState = ({ message }: ProjectErrorStateProps) => {
           Oops, something went wrong.
         </h2>
         <p className="text-[13px] font-medium text-gray-500 mb-8 leading-relaxed">
-          We couldn't load this project's details. The system said: {message}
+          We couldn't load these details. The system said: {message}
         </p>
-        <Link
-          to={ROUTES.PROJECTS}
-          className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#4F7CFF] hover:opacity-80 transition-all"
-        >
-          <ChevronLeft className="w-3.5 h-3.5" />
-          Back to projects overview
-        </Link>
+        {showBackLink && (
+          <Link
+            to={ROUTES.PROJECTS}
+            className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#4F7CFF] hover:opacity-80 transition-all"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+            Back to projects overview
+          </Link>
+        )}
       </div>
     </div>
   );

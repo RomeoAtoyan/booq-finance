@@ -8,30 +8,33 @@ import { ROUTES } from "./pages/routes";
 import { ModalProvider } from "@/context/ModalContext";
 import ModalContainer from "@/components/layout/ModalContainer";
 import { Toaster } from "@/components/ui/sonner";
+import { SimulationProvider } from "@/context/SimulationContext";
 
 const App = () => {
   return (
-    <ModalProvider>
-      <TooltipProvider>
-        <BrowserRouter>
-          <div className="min-h-screen bg-white">
-            <Navbar />
-            <main>
-              <Routes>
-                <Route path={ROUTES.ROOT} element={<Home />} />
-                <Route path={ROUTES.PROJECTS} element={<Projects />} />
-                <Route
-                  path={`${ROUTES.PROJECTS}/:id`}
-                  element={<ProjectsDetail />}
-                />
-              </Routes>
-            </main>
-          </div>
-          <ModalContainer />
-          <Toaster position="top-center" />
-        </BrowserRouter>
-      </TooltipProvider>
-    </ModalProvider>
+    <SimulationProvider>
+      <ModalProvider>
+        <TooltipProvider>
+          <BrowserRouter>
+            <div className="min-h-screen bg-white">
+              <Navbar />
+              <main>
+                <Routes>
+                  <Route path={ROUTES.ROOT} element={<Home />} />
+                  <Route path={ROUTES.PROJECTS} element={<Projects />} />
+                  <Route
+                    path={`${ROUTES.PROJECTS}/:id`}
+                    element={<ProjectsDetail />}
+                  />
+                </Routes>
+              </main>
+            </div>
+            <ModalContainer />
+            <Toaster position="top-center" />
+          </BrowserRouter>
+        </TooltipProvider>
+      </ModalProvider>
+    </SimulationProvider>
   );
 };
 
