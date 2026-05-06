@@ -106,6 +106,7 @@ const AddMemberForm = () => {
 
       <div className="flex justify-end">
         <SubmitButton
+          type="submit"
           isSubmitting={isSubmitting}
           icon={<PlusCircle />}
           label="Add Member"
